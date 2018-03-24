@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: myTalentRecruitment
+  datasource:
+     url: jdbc:mysql://localhost:3306/myTalentRecruitment
+     username: root                                     
+     password:                                      
+   
+  jpa:
+     generate-ddl: false                                     
+     hibernate.ddl-auto: create   
+                             
+     show_sql: true                                          
+     properties.hibernate.default_schema: myTalentRecruitment
+     hibernate.format_sql: true
+     
+#security:
+#  basic:
+#    enabled: false
+                  
+server: #not used if app is deployed as WAR on Tomcat etc
+    port: 8080
+    
+myTalentRecruitmentCorsOrigin:
+  cors.allowed.origins: "*"
+ 
