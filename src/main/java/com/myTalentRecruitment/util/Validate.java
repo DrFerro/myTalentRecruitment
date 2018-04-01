@@ -24,9 +24,9 @@ public abstract class Validate {
         
         Matcher matcherN = pattern.matcher(userIn.getName().trim());
         Matcher matcherLN1 = pattern.matcher(userIn.getLastName1().trim());
-        Matcher matcherLN2 = pattern.matcher(userIn.getLastName2().trim());
+      //Matcher matcherLN2 = pattern.matcher(userIn.getLastName2().trim());
         
-        if(matcherN.matches() && matcherLN1.matches() && matcherLN2.matches())
+        if(matcherN.matches() && matcherLN1.matches() /* && matcherLN2.matches()*/)
         	valid = true;  		
 		
 		return valid;

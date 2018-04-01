@@ -1,6 +1,6 @@
 package com.myTalentRecruitment.model;
 
-public class UserModel {
+public class CandidateModel {
 
 	private long id;
 	private String name;
@@ -8,30 +8,33 @@ public class UserModel {
 	private String lastName2;
 	private String email;
 	private String phone;
-	private boolean anonymous;
-	private boolean worker;
+	private long fieldId;
+	private long specialityId;
+	private String observations;
 	
-	public UserModel() {}
+	public CandidateModel() {}
 	
-	public UserModel(String name, String lastName1, String lastName2, String email, String phone, boolean anonymous, boolean worker) {
+	public CandidateModel(String name, String lastName1, String lastName2, String email, String phone, long fieldId, long specialityId, String observations) {
 		this.name = name;
 		this.lastName1 = lastName1;
 		this.lastName2 = lastName2;
 		this.email = email;
 		this.phone = phone;
-		this.anonymous = anonymous;
-		this.worker = worker;
+		this.fieldId = fieldId;
+		this.specialityId = specialityId;
+		this.observations = observations;
 	}
 	
-	public UserModel(long id, String name, String lastName1, String lastName2, String email, String phone, boolean anonymous, boolean worker) {
+	public CandidateModel(long id, String name, String lastName1, String lastName2, String email, String phone, long fieldId, long specialityId, String observations) {
 		this.id = id;
 		this.name = name;
 		this.lastName1 = lastName1;
 		this.lastName2 = lastName2;
 		this.email = email;
 		this.phone = phone;
-		this.anonymous = anonymous;
-		this.worker = worker;
+		this.fieldId = fieldId;
+		this.specialityId = specialityId;
+		this.observations = observations;
 	}
 	
 	public long getId() {
@@ -70,16 +73,23 @@ public class UserModel {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public boolean isAnonymous() {
-		return anonymous;
+	public long getFieldId() {
+		return fieldId;
 	}
-	public void setAnonymous(boolean anonymous) {
-		this.anonymous = anonymous;
+	public void setFieldId(long fieldId) {
+		this.fieldId = fieldId;
 	}
-	public boolean isWorker() {
-		return worker;
+	public long getSpecialityId() {
+		return specialityId;
 	}
-	public void setWorker(boolean worker) {
-		this.worker = worker;
+	public void setSpecialityId(long specialityId) {
+		this.specialityId = specialityId;
 	}
+	public String getObservations() {
+		return observations;
+	}
+	public void setObservations(String observations) {
+		this.observations = observations;
+	}
+	
 }

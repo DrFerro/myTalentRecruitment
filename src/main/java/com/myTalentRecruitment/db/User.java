@@ -36,6 +36,12 @@ public class User {
 	@Column(length = 125)
 	private String email;
 	
+	@Column(length = 60)
+	private String phone;
+
+	@Column(length = 1)
+	private boolean anonymous;	
+	
 	@Column(length = 1)
 	private boolean worker;	
 	
@@ -45,11 +51,13 @@ public class User {
 
 	public User() {}
 	
-	public User(String name, String lastName1, String lastName2, String email, boolean worker) {
+	public User(String name, String lastName1, String lastName2, String email, String phone, boolean anonymous, boolean worker) {
 		this.name = name;
 		this.lastName1 = lastName1;
 		this.lastName2 = lastName2;
 		this.email = email;
+		this.phone = phone;
+		this.anonymous = anonymous;
 		this.worker = worker;
 	}
 
@@ -91,6 +99,22 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public boolean isAnonymous() {
+		return anonymous;
+	}
+
+	public void setAnonymous(boolean anonymous) {
+		this.anonymous = anonymous;
 	}
 
 	public boolean isWorker() {

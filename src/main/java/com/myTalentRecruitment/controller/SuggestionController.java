@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.myTalentRecruitment.model.FieldModel;
 import com.myTalentRecruitment.model.SuggestionModel;
 import com.myTalentRecruitment.model.UserModel;
 import com.myTalentRecruitment.service.SuggestionService;
 
 @RestController
-@RequestMapping("/sugerencias")
+@RequestMapping("/suggestion")
 public class SuggestionController {
 
 	private Logger logger = LoggerFactory.getLogger(SuggestionController.class);
@@ -39,6 +40,11 @@ public class SuggestionController {
 	@RequestMapping(path = "/users", method = RequestMethod.GET)
 	List<UserModel> findUsers(){
 		return suggestionService.findAllUsers();
+	}
+	
+	@RequestMapping(path = "/fields", method = RequestMethod.GET)
+	List<FieldModel> findFields() {
+		return suggestionService.findFields();
 	}
 	
 	

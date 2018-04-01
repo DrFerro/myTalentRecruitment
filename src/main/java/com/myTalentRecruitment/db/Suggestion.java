@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,15 +29,23 @@ public class Suggestion {
 	@Column
 	private long userId;
 
+	@Column
+	private long candidateId;
+	
 	@ManyToOne
 	@JoinColumn(name = "userId",insertable=false,updatable=false)	
 	private User user;
+	
+	@OneToOne
+	@JoinColumn(name = "candidateId",insertable=false,updatable=false)	
+	private Candidate candidate;
 
 	public Suggestion() {}
 	
-	public Suggestion(Date date, long userId) {
+	public Suggestion(Date date, long userId,  long candidateId) {
 		this.date = date;
 		this.userId = userId;
+		this.candidateId = candidateId;
 	}
 
 	public long getId() {

@@ -5,31 +5,17 @@ import java.util.Date;
 public class SuggestionModel {
 	
 	private long id;
-	private Date date ;
-	
-	private long userId;
-	private String userName;
-	private String userLastName1;
-	private String userLastName2;
-	private String userEmail;
-	private boolean userWorker;
-	
-//	private long candidateId;
-//	private String candidateName;
-//	private String candidateLastName1;
-//	private String candidateLastName2;
-//	private String candidateEmail;
-//	private Sector candidateSector;
-//	private String candidateEmail;
-//	private String candidateEmail;
+	private Date date ;	
+	private UserModel user;
+	private CandidateModel candidate;
 
-	
 	public SuggestionModel() {}
 	
-	public SuggestionModel(long id, Date date, long userId) {
+	public SuggestionModel(long id, Date date, UserModel user, CandidateModel candidate) {
 		this.id = id;
 		this.date = date;
-		this.userId = userId;
+		this.user= user;
+		this.candidate= candidate;
 	}
 
 	public long getId() {
@@ -47,53 +33,21 @@ public class SuggestionModel {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	public long getUserId() {
-		return userId;
+	
+	public UserModel getUser() {
+		return user;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setUser(UserModel user) {
+		this.user = user;
 	}
 
-	public String getUserName() {
-		return userName;
+	public CandidateModel getCandidate() {
+		return candidate;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setCandidate(CandidateModel candidate) {
+		this.candidate = candidate;
 	}
-
-	public String getUserLastName1() {
-		return userLastName1;
-	}
-
-	public void setUserLastName1(String userLastName1) {
-		this.userLastName1 = userLastName1;
-	}
-
-	public String getUserLastName2() {
-		return userLastName2;
-	}
-
-	public void setUserLastName2(String userLastName2) {
-		this.userLastName2 = userLastName2;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public boolean isUserWorker() {
-		return userWorker;
-	}
-
-	public void setUserWorker(boolean userWorker) {
-		this.userWorker = userWorker;
-	}	
 
 }

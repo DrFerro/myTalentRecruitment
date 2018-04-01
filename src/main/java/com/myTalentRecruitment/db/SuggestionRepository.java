@@ -9,6 +9,5 @@ public interface SuggestionRepository extends JpaRepository<Suggestion, Long> {
 	
 	@Query("select s from Suggestion s") 
 	public List<Suggestion> findAll();
-		
 	
 }

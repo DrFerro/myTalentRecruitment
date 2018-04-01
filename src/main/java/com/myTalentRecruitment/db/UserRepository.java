@@ -13,18 +13,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("select u from User u") 
 	public List<User> findAll();
 	
-	
-	
 //	@Query("select u.email from User u") 
 //	public List<User> findAllEmails();
-	
-	
 	
 	@Query("select u from User u where u.email = :email") 
 	public User findByEmail(@Param("email") String email);
 	
 //	@Query("INSERT INTO User (apellido1, apellido2, email, nombre, id) VALUES(AES_ENCRYPT((?, ?, ?, ?, ?), 'contraseña')") 
 //	public void insertar();
-	
 	
 }

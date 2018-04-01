@@ -8,7 +8,7 @@ spring:
    
   jpa:
      generate-ddl: false                                     
-     hibernate.ddl-auto: create   
+     hibernate.ddl-auto: update   
                              
      show_sql: true                                          
      properties.hibernate.default_schema: myTalentRecruitment
