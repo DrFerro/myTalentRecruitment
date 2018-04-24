@@ -14,4 +14,7 @@ public interface SpecialityRepository extends JpaRepository<Speciality, Long> {
 	@Query("select s.description from Speciality s where s.id = :id")
 	public String findSpecialitydById(@Param("id") long id);
 	
+	@Query("select s.id, s.description from Speciality s where s.fieldId = :id")
+	public List<Speciality> findSpecialitydByField(@Param("id") long id);
+	
 }

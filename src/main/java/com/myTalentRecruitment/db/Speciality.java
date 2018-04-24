@@ -22,7 +22,7 @@ public class Speciality {
 	@Column
 	private long id;
 	
-	@Column(length=25)
+	@Column(length=60)
 	private String description;
 	
 	@Column

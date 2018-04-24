@@ -13,6 +13,8 @@ import com.myTalentRecruitment.db.Candidate;
 import com.myTalentRecruitment.db.CandidateRepository;
 import com.myTalentRecruitment.db.Field;
 import com.myTalentRecruitment.db.FieldRepository;
+import com.myTalentRecruitment.db.Speciality;
+import com.myTalentRecruitment.db.SpecialityRepository;
 import com.myTalentRecruitment.db.Suggestion;
 import com.myTalentRecruitment.db.SuggestionRepository;
 import com.myTalentRecruitment.db.User;
@@ -20,6 +22,7 @@ import com.myTalentRecruitment.db.UserRepository;
 import com.myTalentRecruitment.exception.MyTalentRecruitmentException;
 import com.myTalentRecruitment.model.CandidateModel;
 import com.myTalentRecruitment.model.FieldModel;
+import com.myTalentRecruitment.model.SpecialityModel;
 import com.myTalentRecruitment.model.SuggestionModel;
 import com.myTalentRecruitment.model.UserModel;
 import com.myTalentRecruitment.util.Conv;
@@ -81,7 +84,7 @@ public class SuggestionService {
 		
 		if(existCandidate.getId()==0) {	
 			
-			if(/*Validate.validUser(candidateIn)*/ true) {			
+			if(Validate.validCandidate(candidateIn)) {			
 				try {	
 					
 					Candidate candidateDb = new Candidate();			
@@ -99,11 +102,11 @@ public class SuggestionService {
 					candidateOut = new CandidateModel(candidateDb.getId(), candidateDb.getName(), candidateDb.getLastName1(), candidateDb.getLastName2(), candidateDb.getEmail(), candidateDb.getPhone(), candidateDb.getFieldId(), candidateDb.getSpecialityId(), candidateDb.getObservations());
 
 				} catch (Exception e) {
-					throw new MyTalentRecruitmentException("Error al insertar el usuario en la base de datos");
+					throw new MyTalentRecruitmentException("Error al insertar el candidato en la base de datos");
 				}		
 				
 			} else {
-				throw new MyTalentRecruitmentException("Los datos del candidato deben venir formados.");
+				throw new MyTalentRecruitmentException("Los datos del candidato deben venir bien formados.");
 			}		
 		}
 
@@ -153,6 +156,30 @@ public class SuggestionService {
 		return fieldsOut;
 	}
 	
+	/***************************** Metodos relacionados con Speciality *************************************************************/
+
+	@Autowired
+	SpecialityRepository specialityRepository;
+	
+	public List<SpecialityModel> specialitiesByField(FieldModel field) {
+
+		List<Speciality> specialitiesBd = new ArrayList<Speciality>();
+		specialitiesBd = specialityRepository.findSpecialitydByField(field.getId());
+
+		Iterator itr = specialitiesBd.iterator();
+		List<SpecialityModel> specialitiesOut = new ArrayList<SpecialityModel>();
+
+		while (itr.hasNext()) {
+			SpecialityModel specialityIn = new SpecialityModel();
+			Object[] obj = (Object[]) itr.next();
+			specialityIn.setId(Long.parseLong(String.valueOf(obj[0])));
+			specialityIn.setDescription(String.valueOf(obj[1]));
+			specialitiesOut.add(specialityIn);
+		}
+
+		return specialitiesOut;
+	}
+	
 	/***************************** Metodos relacionados con User *************************************************************/
 	@Autowired
 	UserRepository userRepository;
@@ -163,30 +190,39 @@ public class SuggestionService {
 		String name = "", lastName1 ="", lastName2 ="", email="", phone="";	
 		
 		User existUser = findUserByEmail(userIn.getEmail());
-		
-		if(existUser.getId()==0) {	
+	
+		if(existUser.getId()==0) {
 			
-			if(Validate.validUser(userIn)) {			
-				try {	
+			if(userIn.isWorker()) {
+				User userDb = new User();			
+				email = Conv.encrypt(userIn.getEmail());
+				userDb = new User("worker", "", "", email, "", userIn.isAnonymous(), userIn.isWorker());		
+				userRepository.save(userDb);
+				userOut = new UserModel(userDb.getId(), userDb.getName(), userDb.getLastName1(), userDb.getLastName2(), userIn.getEmail(), userDb.getPhone(), userIn.isAnonymous(),userIn.isWorker());
+			
+			} else {			
+				if(Validate.validUser(userIn)) {				
+					try {	
+						
+						User userDb = new User();			
+						name = Conv.encrypt(userIn.getName());
+						lastName1 = Conv.encrypt(userIn.getLastName1());
+						lastName2 = Conv.encrypt(userIn.getLastName2());
+						email = Conv.encrypt(userIn.getEmail());
+						phone = Conv.encrypt(userIn.getPhone());
+
+						userDb = new User(name, lastName1, lastName2, email, phone, userIn.isAnonymous(), userIn.isWorker());		
+						userRepository.save(userDb);
+						userOut = new UserModel(userDb.getId(), userIn.getName(), userIn.getLastName1(), userIn.getLastName2(), userIn.getEmail(), userIn.getPhone(), userIn.isAnonymous(),userIn.isWorker());
+
+					} catch (Exception e) {
+						throw new MyTalentRecruitmentException("Error al insertar el usuario en la base de datos");
+					}	
 					
-					User userDb = new User();			
-					name = Conv.encrypt(userIn.getName());
-					lastName1 = Conv.encrypt(userIn.getLastName1());
-					lastName2 = Conv.encrypt(userIn.getLastName2());
-					email = Conv.encrypt(userIn.getEmail());
-					phone = Conv.encrypt(userIn.getPhone());
-
-					userDb = new User(name, lastName1, lastName2, email, phone, userIn.isAnonymous(), userIn.isWorker());		
-					userRepository.save(userDb);
-					userOut = new UserModel(userDb.getId(), userIn.getName(), userIn.getLastName1(), userIn.getLastName2(), userIn.getEmail(), userIn.getPhone(), userIn.isAnonymous(),userIn.isWorker());
-
-				} catch (Exception e) {
-					throw new MyTalentRecruitmentException("Error al insertar el usuario en la base de datos");
-				}		
-				
-			} else {
-				throw new MyTalentRecruitmentException("Los datos del usuario deben venir formados.");
-			}			
+				} else {
+					throw new MyTalentRecruitmentException("Los datos del usuario deben venir bien formados.");
+				}					
+			}		
 
 		} else {			
 			userOut = new UserModel(existUser.getId(), Conv.decrypt(existUser.getName()),

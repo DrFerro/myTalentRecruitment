@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myTalentRecruitment.model.FieldModel;
+import com.myTalentRecruitment.model.SpecialityModel;
 import com.myTalentRecruitment.model.SuggestionModel;
 import com.myTalentRecruitment.model.UserModel;
 import com.myTalentRecruitment.service.SuggestionService;
@@ -45,6 +46,11 @@ public class SuggestionController {
 	@RequestMapping(path = "/fields", method = RequestMethod.GET)
 	List<FieldModel> findFields() {
 		return suggestionService.findFields();
+	}
+	
+	@RequestMapping(path = "/specialities", method = RequestMethod.POST)
+	List<SpecialityModel> specialitiesByField(@RequestBody FieldModel field){
+		return suggestionService.specialitiesByField(field);
 	}
 	
 	
